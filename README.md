@@ -61,7 +61,7 @@ ganache-cli -d --fork https://kovan.infura.io/v3/{YOUR INFURA KEY OF KOVAN}
 
 - Execute test of the smart-contracts (on the local)
 ```
-npm run test:Something`  
+npm run test:Something
 ```
 ( `truffle test ./test/test-local/Something.test.js` )  
 
@@ -76,8 +76,8 @@ npm run test:Something`
      https://github.com/lidofinance/lido-dao#deployments
 
   - [Definition]：StETH.sol is an interest-bearing ERC20-like token
-     - StETH.sol: https://github.com/lidofinance/lido-dao/blob/master/contracts/0.4.24/StETH.sol#L14
-　   - StETHMockERC20.sol: https://github.com/lidofinance/lido-dao/blob/master/contracts/0.6.12/mocks/StETHMockERC20.sol
+    - StETH.sol: https://github.com/lidofinance/lido-dao/blob/master/contracts/0.4.24/StETH.sol#L14
+    - StETHMockERC20.sol: https://github.com/lidofinance/lido-dao/blob/master/contracts/0.6.12/mocks/StETHMockERC20.sol
 
 <br>
 
