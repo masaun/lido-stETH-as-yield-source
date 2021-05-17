@@ -13,12 +13,14 @@ contract LidoYieldSource is IYieldSource {
 
     StETHMockERC20 public stETH;
     WstETH public wstETH;
+    address ST_ETH;
     address WST_ETH;
     mapping(address => uint256) public balances;  /// Underlying asset balance
 
     constructor(StETHMockERC20 _stETH, WstETH _wstETH) public {
         stETH = _stETH;
         wstETH = _wstETH;
+        ST_ETH = address(stETH);
         WST_ETH = address(wstETH);
     }
 
@@ -40,7 +42,16 @@ contract LidoYieldSource is IYieldSource {
     /// @notice Allows assets to be supplied on other user's behalf using the `to` param.
     /// @param amount The amount of `token()` to be supplied
     /// @param to The user whose balance will receive the tokens
-    function supplyTokenTo(uint256 amount, address to) public override {}
+    function supplyTokenTo(uint256 amount, address to) public override {
+        stETH.transferFrom(msg.sender, address(this), amount);
+        stETH.approve(WST_ETH, amount);
+
+        uint256 beforeBalance = wstETH.balanceOf(address(this));
+        wstETH.wrap(amount);
+        uint256 afterBalance = wstETH.balanceOf(address(this));
+        uint256 balanceDiff = afterBalance.sub(beforeBalance);
+        balances[to] = balances[to].add(balanceDiff);
+    }
 
     /// @notice Redeems tokens from the yield source from the msg.sender, it burn yield bearing tokens and return token to the sender.
     /// @param amount The amount of `token()` to withdraw.  Denominated in `token()` as above.
