@@ -63,7 +63,7 @@ ganache-cli -d --fork https://kovan.infura.io/v3/{YOUR INFURA KEY OF KOVAN}
 ```
 npm run test:Something
 ```
-( `truffle test ./test/test-local/Something.test.js` )  
+( `truffle test ./test/test-local/Something.test.js --network local` )  
 
 <br>
 
