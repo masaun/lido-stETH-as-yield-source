@@ -56,6 +56,21 @@ contract LidoYieldSource is IYieldSource {
     /// @notice Redeems tokens from the yield source from the msg.sender, it burn yield bearing tokens and return token to the sender.
     /// @param amount The amount of `token()` to withdraw.  Denominated in `token()` as above.
     /// @return The actual amount of tokens that were redeemed.
-    function redeemToken(uint256 amount) public override returns (uint256) {}
+    function redeemToken(uint256 amount) public override returns (uint256) {
+        uint256 wstETHBeforeBalance = wstETH.balanceOf(address(this));
+        uint256 stETHBeforeBalance = stETH.balanceOf(address(this));
+
+        wstETH.unwrap(wstETHBeforeBalance);
+
+        uint256 wstETHAfterBalance = wstETH.balanceOf(address(this));
+        uint256 stETHAfterBalance = stETH.balanceOf(address(this));
+
+        uint256 wstETHBalanceDiff = wstETHBeforeBalance.sub(wstETHAfterBalance);
+        uint256 stETHBalanceDiff = stETHAfterBalance.sub(stETHBeforeBalance);
+
+        balances[msg.sender] = balances[msg.sender].sub(wstETHBalanceDiff);
+        stETH.transfer(msg.sender, stETHBalanceDiff);
+        return (stETHBalanceDiff);
+    }
 
 }
