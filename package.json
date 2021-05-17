@@ -6,7 +6,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "truffle test ./test/test-local/*",
+    "test:Lido": "truffle test ./test/test-local/lido/*",
     "test:Something": "truffle test ./test/test-local/Something.test.js",
     "compile:local": "truffle compile --reset --network local",
     "migrate:local": "truffle migrate --reset --network local"
