@@ -18,8 +18,7 @@
     "@openzeppelin/test-helpers": "^0.5.10",
     "@truffle/hdwallet-provider": "^1.2.0",
     "dotenv": "^8.2.0",
-    "eth-block-tracker": "^4.4.3",
-    "@pooltogether/pooltogether-contracts": "3.3.7"
+    "eth-block-tracker": "^4.4.3"
   },
   "devDependencies": {}
 }
