@@ -7,7 +7,7 @@
   },
   "scripts": {
     "test:Lido": "truffle test ./test/test-local/lido/*",
-    "test:Something": "truffle test ./test/test-local/Something.test.js",
+    "test:LidoYieldSource": "truffle test ./test/test-local/LidoYieldSource.test.js",
     "compile:local": "truffle compile --reset --network local",
     "migrate:local": "truffle migrate --reset --network local"
   },
@@ -17,6 +17,7 @@
     "@openzeppelin/contracts": "^3.4.1",
     "@openzeppelin/test-helpers": "^0.5.10",
     "@truffle/hdwallet-provider": "^1.2.0",
+    "chai": "^4.3.4",
     "dotenv": "^8.2.0",
     "eth-block-tracker": "^4.4.3"
   },
