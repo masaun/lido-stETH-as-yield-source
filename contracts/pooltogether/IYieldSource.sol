@@ -17,11 +17,11 @@ interface IYieldSource {
   /// @notice Supplies tokens to the yield source.  Allows assets to be supplied on other user's behalf using the `to` param.
   /// @param amount The amount of `token()` to be supplied
   /// @param to The user whose balance will receive the tokens
-  function supplyTokenTo(uint256 amount, address to) external;
+  function supplyTokenTo(uint256 amount, address to) external payable;
 
   /// @notice Redeems tokens from the yield source.
   /// @param amount The amount of `token()` to withdraw.  Denominated in `token()` as above.
   /// @return The actual amount of tokens that were redeemed.
-  function redeemToken(uint256 amount) external returns (uint256);
+  function redeemToken(uint256 amount) external payable returns (uint256);
 
 }
