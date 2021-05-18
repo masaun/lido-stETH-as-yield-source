@@ -58,10 +58,11 @@ contract("LidoYieldSource", function(accounts) {
         await stETH.submit(wallet, { from: wallet })
       })
 
-      // it("get token address", async function () {
-      //   let address = await yieldSource.depositToken();
-      //   expect(address == sushi);
-      // });
+      it("get token address", async function () {
+        let address = await yieldSource.depositToken()
+        console.log('=== depositToken ===', address)
+        expect(address == "0x0000000000000000000000000000000000000000")   /// ETH
+      })
 
       // it("balanceOfToken", async function () {
       //   expect(await yieldSource.callStatic.balanceOfToken(wallet.address)).to.eq(
