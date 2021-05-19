@@ -69,6 +69,7 @@ contract("LidoYieldSource", function(accounts) {
         })
 
         it("submit() <- This is a test", async function () {
+            /// [Note]: setTotalShares() and setTotalPooledEther() are executed in this part. Because it doesn't work if it is executed in global
             const totalShares = toWei("1")
             let txReceipt1 = await stETH.setTotalShares(totalShares, { from: wallet })
 
@@ -93,20 +94,26 @@ contract("LidoYieldSource", function(accounts) {
         })
 
         it("supplyTokenTo", async function () {
-            let ETHBalanceOfWallet = await yieldSource.getETHBalance(wallet)            
-            console.log('=== ETH balance of wallet ===', fromWei(ETHBalanceOfWallet))
+            /// [Note]: setTotalShares() and setTotalPooledEther() are executed in this part. Because it doesn't work if it is executed in global
+            const totalShares = toWei("1")
+            let txReceipt1 = await stETH.setTotalShares(totalShares, { from: wallet })
+
+            const totalPooledEther = toWei("1")
+            let txReceipt2 = await stETH.setTotalPooledEther(totalPooledEther, { from: wallet })
 
             await yieldSource.supplyTokenTo(amount, wallet, { from: wallet, value: amount })
 
             let stETHBalance = await yieldSource.getStETHBalance(YIELD_SOURCE)            
             console.log('=== stETH balance of YIELD_SOURCE ===', fromWei(stETHBalance))
+            expect(fromWei(stETHBalance)).to.eq(
+                fromWei(amount)
+            )
 
             let ETHBalance = await yieldSource.balanceOfToken(wallet)
-            console.log('=== Deposited-ETH balance of wallet ===', String(ETHBalance))
-            expect(String(ETHBalance)).to.eq(amount)
-
-
-
+            console.log('=== Deposited-ETH balance of wallet ===', fromWei(ETHBalance))
+            expect(fromWei(ETHBalance)).to.eq(
+                fromWei(amount)
+            )
         })
 
     //     it("redeemToken", async function () {
