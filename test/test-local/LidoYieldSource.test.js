@@ -116,14 +116,27 @@ contract("LidoYieldSource", function(accounts) {
             )
         })
 
-    //     it("redeemToken", async function () {
-    //         await sushi.connect(wallet).approve(yieldSource.address, amount);
-    //         await yieldSource.supplyTokenTo(amount, wallet.address);
+        it("redeemToken", async function () {
+            let ETHBalanceBefore = await yieldSource.getETHBalance(wallet)
+            console.log('=== ETHBalanceBefore ===', fromWei(ETHBalanceBefore))
 
-    //         expect(await sushi.balanceOf(wallet.address)).to.eq(0);
-    //         await yieldSource.redeemToken(amount);
-    //         expect(await sushi.balanceOf(wallet.address)).to.eq(amount);
-    //     });
+            /// [Note]: setTotalShares() and setTotalPooledEther() are executed in this part. Because it doesn't work if it is executed in global
+            const totalShares = toWei("1")
+            let txReceipt1 = await stETH.setTotalShares(totalShares, { from: wallet })
+
+            const totalPooledEther = toWei("1")
+            let txReceipt2 = await stETH.setTotalPooledEther(totalPooledEther, { from: wallet })
+
+            await yieldSource.supplyTokenTo(amount, wallet, { from: wallet, value: amount })
+
+            await yieldSource.redeemToken(amount, { from: wallet})
+            let ETHBalanceAfter = await yieldSource.getETHBalance(wallet)
+            console.log('=== ETHBalanceAfter ===', fromWei(ETHBalanceAfter))
+
+            expect(fromWei(ETHBalanceBefore)).to.eq(
+                fromWei(ETHBalanceAfter)
+            )
+        });
 
     //     [toWei("100"), toWei("100").mul(10), toWei("100").mul(99)].forEach(function (
     //         amountToDeposit
