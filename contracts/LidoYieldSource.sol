@@ -28,7 +28,7 @@ contract LidoYieldSource is IYieldSource {
 
     /// @notice Returns the total balance (in asset tokens).  This includes the deposits and interest.
     /// @return The underlying balance of asset tokens
-    function balanceOfToken(address addr) public override returns (uint256) {
+    function balanceOfToken(address addr) public view override returns (uint256) {
         if (balances[addr] == 0) return 0;
 
         uint256 ETHBalance = addr.balance;
@@ -38,10 +38,12 @@ contract LidoYieldSource is IYieldSource {
     /// @notice Allows assets to be supplied on other user's behalf using the `to` param.
     /// @param amount The amount of `token()` to be supplied
     /// @param to The user whose balance will receive the tokens
-    function supplyTokenTo(uint256 amount, address to) public payable override {
+    function supplyTokenTo(uint256 amount, address to) public payable override {        
         uint256 transferredETHAmount = msg.value;
+        require (amount == transferredETHAmount, "amount should be equal to transferredETHAmount");
 
         uint256 beforeBalance = stETH.balanceOf(address(this));
+        
         stETH.submit{ value: transferredETHAmount }(msg.sender);
 
         uint256 afterBalance = stETH.balanceOf(address(this));

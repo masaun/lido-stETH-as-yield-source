@@ -24,11 +24,11 @@ const { expect } = chai;
 
 contract("LidoYieldSource", function(accounts) {
 
-    async function toWei(amount) {
+    function toWei(amount) {
         return web3.utils.toWei(`${ amount }`, 'ether')
     }
 
-    async function fromWei(amount) {
+    function fromWei(amount) {
         return web3.utils.fromWei(`${ amount }`, 'ether')
     }
 
@@ -64,17 +64,13 @@ contract("LidoYieldSource", function(accounts) {
         expect(address == "0x0000000000000000000000000000000000000000")   /// ETH
       })
 
-      // it("balanceOfToken", async function () {
-      //   expect(await yieldSource.callStatic.balanceOfToken(wallet.address)).to.eq(
-      //     0
-      //   );
-
-      //   await sushi.connect(wallet).approve(yieldSource.address, amount);
-      //   await yieldSource.supplyTokenTo(amount, wallet.address);
-      //   expect(await yieldSource.callStatic.balanceOfToken(wallet.address)).to.eq(
-      //     amount
-      //   );
-      // });
+      it("balanceOfToken (initial deposited-token balance)", async function () {
+        let ETHbalance = await yieldSource.balanceOfToken(wallet)
+        console.log('=== Deposited-ETH balance of wallet ===', String(ETHbalance))
+        expect(String(ETHbalance)).to.eq(  
+          "0"
+        )
+      })
 
       // it("supplyTokenTo", async function () {
       //   await sushi.connect(wallet).approve(yieldSource.address, amount);
@@ -82,8 +78,8 @@ contract("LidoYieldSource", function(accounts) {
       //   expect(await sushi.balanceOf(sushiBar.address)).to.eq(amount.mul(100));
       //   expect(await yieldSource.callStatic.balanceOfToken(wallet.address)).to.eq(
       //     amount
-      //   );
-      // });
+      //   )
+      // })
 
       // it("redeemToken", async function () {
       //   await sushi.connect(wallet).approve(yieldSource.address, amount);
