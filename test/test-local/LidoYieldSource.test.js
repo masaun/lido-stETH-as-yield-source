@@ -127,39 +127,7 @@ contract("LidoYieldSource", function(accounts) {
             expect(fromWei(ETHBalanceBefore)).to.eq(
                 fromWei(ETHBalanceAfter)
             )
-        });
-
-    //     [toWei("100"), toWei("100").mul(10), toWei("100").mul(99)].forEach(function (
-    //         amountToDeposit
-    //     ) {
-    //         it(
-    //             "deposit " + toEth(amountToDeposit) + ", sushi accrues, withdrawal",
-    //             async function () {
-    //                 await sushi.mint(wallet.address, amountToDeposit.sub(amount));
-    //                 await sushi
-    //                     .connect(wallet)
-    //                     .approve(yieldSource.address, amountToDeposit);
-    //                 await yieldSource.supplyTokenTo(amountToDeposit, wallet.address);
-    //                 // increase total balance by amount
-    //                 await sushi.mint(sushiBar.address, amount);
-
-    //                 const totalAmount = await yieldSource.callStatic.balanceOfToken(
-    //                     wallet.address
-    //                 );
-    //                 const expectedAmount = amountToDeposit
-    //                     .mul(amountToDeposit.add(amount.mul(100)))
-    //                     .div(amountToDeposit.add(amount.mul(99)));
-    //                 expect(totalAmount).to.eq(expectedAmount);
-
-    //                 await yieldSource.redeemToken(totalAmount);
-    //                 expect(await sushi.balanceOf(wallet.address)).to.be.closeTo(
-    //                     totalAmount,
-    //                     1
-    //                 );
-    //             }
-    //         );
-    //     });
-
+        })
     })
 })
 
