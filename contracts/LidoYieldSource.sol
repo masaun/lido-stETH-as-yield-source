@@ -68,7 +68,8 @@ contract LidoYieldSource is IYieldSource {
         uint256 stETHBalanceDiff = stETHBeforeBalance.sub(stETHAfterBalance);
         uint256 ETHBalanceDiff = ETHAfterBalance.sub(ETHBeforeBalance);
 
-        balances[msg.sender] = balances[msg.sender].sub(stETHBalanceDiff);
+        balances[msg.sender] = balances[msg.sender].sub(ETHBalanceDiff);      /// New
+        //balances[msg.sender] = balances[msg.sender].sub(stETHBalanceDiff);  /// Original
         
         msg.sender.transfer(ETHBalanceDiff);
 
