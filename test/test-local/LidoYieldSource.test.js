@@ -1,0 +1,133 @@
+const Web3 = require('web3')
+const web3 = new Web3(new Web3.providers.WebsocketProvider('ws://localhost:8545'))
+
+/// Openzeppelin test-helper
+const { time } = require('@openzeppelin/test-helpers')
+
+/// Artifacts
+const LidoYieldSource = artifacts.require('LidoYieldSource')
+const StETHMockERC20 = artifacts.require('StETHMockERC20')
+//const WstETH = artifacts.require('WstETH')
+//const ERC20MintableContract = artifacts.require('ERC20MintableContract')
+
+
+//const { ethers } = require("hardhat");
+//const { solidity } = require("ethereum-waffle");
+const chai = require("chai");
+
+//chai.use(solidity);
+//const toWei = ethers.utils.parseEther;
+//const toEth = ethers.utils.formatEther;
+const { expect } = chai;
+
+//let overrides = { gasLimit: 9500000 };
+
+contract("LidoYieldSource", function(accounts) {
+
+    function toWei(amount) {
+        return web3.utils.toWei(`${ amount }`, 'ether')
+    }
+
+    function fromWei(amount) {
+        return web3.utils.fromWei(`${ amount }`, 'ether')
+    }
+
+    describe("LidoYieldSource", function () {
+        let wallet
+        let wallet2
+
+        let stETH
+        let yieldSource
+        let amount
+
+        let ST_ETH
+        let YIELD_SOURCE
+
+        beforeEach(async function () {
+            //[wallet, wallet2] = await ethers.getSigners();
+            wallet = accounts[0]
+            wallet2 = accounts[1]
+
+            stETH = await StETHMockERC20.new({ from: wallet })
+            ST_ETH = stETH.address
+
+            yieldSource = await LidoYieldSource.new(ST_ETH, { from: wallet })
+            YIELD_SOURCE = yieldSource.address
+
+            amount = toWei("10")  /// [Note]: 10 
+            await stETH.submit(wallet, { from: wallet })
+        })
+
+        it("setTotalShares()", async function () {
+            const totalShares = toWei("1")
+            let txReceipt = await stETH.setTotalShares(totalShares, { from: wallet })
+        })
+
+        it("setTotalPooledEther()", async function () {
+            const totalPooledEther = toWei("1")
+            let txReceipt = await stETH.setTotalPooledEther(totalPooledEther, { from: wallet })
+        })
+
+        it("submit() <- This is a test", async function () {
+            /// [Note]: setTotalShares() and setTotalPooledEther() are executed in this part. Because it doesn't work if it is executed in global
+            const totalShares = toWei("1")
+            let txReceipt1 = await stETH.setTotalShares(totalShares, { from: wallet })
+
+            const totalPooledEther = toWei("1")
+            let txReceipt2 = await stETH.setTotalPooledEther(totalPooledEther, { from: wallet })
+
+            let txReceipt3 = await stETH.submit(wallet2, { from: wallet, value: amount })
+            let stETHBalance = await stETH.balanceOf(wallet)            
+            console.log('=== stETH balance of wallet ===', fromWei(stETHBalance))
+        })
+
+        it("get token address", async function () {
+            let address = await yieldSource.depositToken()
+            console.log('=== depositToken ===', address)
+            expect(address == "0x0000000000000000000000000000000000000000")   /// ETH
+        })
+
+        it("balanceOfToken (initial deposited-token balance)", async function () {
+            let ETHBalance = await yieldSource.balanceOfToken(wallet)
+            console.log('=== Deposited-ETH balance of wallet ===', fromWei(ETHBalance))
+            expect(String(ETHBalance)).to.eq("0")
+        })
+
+        it("supplyTokenTo", async function () {
+            /// [Note]: setTotalShares() and setTotalPooledEther() are executed in this part. Because it doesn't work if it is executed in global
+            const totalShares = toWei("1")
+            let txReceipt1 = await stETH.setTotalShares(totalShares, { from: wallet })
+
+            const totalPooledEther = toWei("1")
+            let txReceipt2 = await stETH.setTotalPooledEther(totalPooledEther, { from: wallet })
+
+            await yieldSource.supplyTokenTo(amount, wallet, { from: wallet, value: amount })
+
+            let stETHBalance = await yieldSource.getStETHBalance(YIELD_SOURCE)            
+            console.log('=== stETH balance of YIELD_SOURCE ===', fromWei(stETHBalance))
+            expect(fromWei(stETHBalance)).to.eq(
+                fromWei(amount)
+            )
+
+            let ETHBalance = await yieldSource.balanceOfToken(wallet)
+            console.log('=== Deposited-ETH balance of wallet ===', fromWei(ETHBalance))
+            expect(fromWei(ETHBalance)).to.eq(
+                fromWei(amount)
+            )
+        })
+
+        it("redeemToken", async function () {
+            let ETHBalanceBefore = await yieldSource.getETHBalance(wallet)
+            console.log('=== ETHBalanceBefore ===', fromWei(ETHBalanceBefore))
+
+            await yieldSource.redeemToken(amount, { from: wallet})
+            let ETHBalanceAfter = await yieldSource.getETHBalance(wallet)
+            console.log('=== ETHBalanceAfter ===', fromWei(ETHBalanceAfter))
+
+            // expect(fromWei(ETHBalanceBefore)).to.eq(
+            //     fromWei(ETHBalanceAfter)
+            // )
+        })
+    })
+})
+

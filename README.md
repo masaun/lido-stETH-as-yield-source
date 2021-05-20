@@ -61,9 +61,9 @@ ganache-cli -d --fork https://kovan.infura.io/v3/{YOUR INFURA KEY OF KOVAN}
 
 - Execute test of the smart-contracts (on the local)
 ```
-npm run test:Something
+npm run test:LidoYieldSource
 ```
-( `truffle test ./test/test-local/Something.test.js --network local` )  
+( `truffle test ./test/test-local/LidoYieldSource.test.js --network local` )  
 
 <br>
 

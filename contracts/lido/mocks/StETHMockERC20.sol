@@ -9,6 +9,7 @@ import "@openzeppelin/contracts/token/ERC20/ERC20Burnable.sol";
 
 //TODO: use StETHMock from 0.4.24 instead of this ERC20 based impl
 contract StETHMockERC20 is ERC20, ERC20Burnable {
+
     constructor() public ERC20("Liquid staked Lido Ether", "StETH") {}
 
     uint256 public totalShares;

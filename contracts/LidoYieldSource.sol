@@ -28,21 +28,24 @@ contract LidoYieldSource is IYieldSource {
 
     /// @notice Returns the total balance (in asset tokens).  This includes the deposits and interest.
     /// @return The underlying balance of asset tokens
-    function balanceOfToken(address addr) public override returns (uint256) {
+    function balanceOfToken(address addr) public view override returns (uint256) {
         if (balances[addr] == 0) return 0;
 
-        uint256 ETHBalance = addr.balance;
-        return ETHBalance;
+        //uint256 stETHBalance = stETH.balanceOf(addr);
+        return balances[addr];  // [Note]: This is ETH balance
     }
 
     /// @notice Allows assets to be supplied on other user's behalf using the `to` param.
     /// @param amount The amount of `token()` to be supplied
     /// @param to The user whose balance will receive the tokens
-    function supplyTokenTo(uint256 amount, address to) public payable override {
+    function supplyTokenTo(uint256 amount, address to) public payable override {        
         uint256 transferredETHAmount = msg.value;
+        require (transferredETHAmount != 0, "transferredETHAmount should be more than 0");
+        require (amount == transferredETHAmount, "amount should be equal to transferredETHAmount");
 
         uint256 beforeBalance = stETH.balanceOf(address(this));
-        stETH.submit{ value: transferredETHAmount }(msg.sender);
+
+        stETH.submit{ value: transferredETHAmount }(msg.sender); 
 
         uint256 afterBalance = stETH.balanceOf(address(this));
         
@@ -57,7 +60,8 @@ contract LidoYieldSource is IYieldSource {
         uint256 stETHBeforeBalance = stETH.balanceOf(address(this));
         uint256 ETHBeforeBalance = address(this).balance;
 
-        stETH.slash(msg.sender, ETHBeforeBalance);
+        stETH.slash(msg.sender, stETHBeforeBalance);  /// New
+        //stETH.slash(msg.sender, ETHBeforeBalance);  /// Original
 
         uint256 stETHAfterBalance = stETH.balanceOf(address(this));
         uint256 ETHAfterBalance = address(this).balance;
@@ -65,11 +69,22 @@ contract LidoYieldSource is IYieldSource {
         uint256 stETHBalanceDiff = stETHBeforeBalance.sub(stETHAfterBalance);
         uint256 ETHBalanceDiff = ETHAfterBalance.sub(ETHBeforeBalance);
 
-        balances[msg.sender] = balances[msg.sender].sub(stETHBalanceDiff);
+        balances[msg.sender] = balances[msg.sender].sub(ETHBalanceDiff);      /// New
+        //balances[msg.sender] = balances[msg.sender].sub(stETHBalanceDiff);  /// Original
         
         msg.sender.transfer(ETHBalanceDiff);
 
         return (ETHBalanceDiff);
     }
+
+    function getETHBalance(address walletAddress) public view returns (uint _ETHBalance) {
+        return walletAddress.balance;
+    }
+
+    function getStETHBalance(address walletAddress) public view returns (uint _stETHBalance) {
+        return stETH.balanceOf(walletAddress);
+    }
+    
+    
 
 }

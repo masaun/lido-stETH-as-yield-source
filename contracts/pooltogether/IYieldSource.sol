@@ -12,7 +12,7 @@ interface IYieldSource {
 
   /// @notice Returns the total balance (in asset tokens).  This includes the deposits and interest.
   /// @return The underlying balance of asset tokens
-  function balanceOfToken(address addr) external returns (uint256);
+  function balanceOfToken(address addr) external view returns (uint256);
 
   /// @notice Supplies tokens to the yield source.  Allows assets to be supplied on other user's behalf using the `to` param.
   /// @param amount The amount of `token()` to be supplied
