@@ -60,7 +60,8 @@ contract LidoYieldSource is IYieldSource {
         uint256 stETHBeforeBalance = stETH.balanceOf(address(this));
         uint256 ETHBeforeBalance = address(this).balance;
 
-        stETH.slash(msg.sender, ETHBeforeBalance);
+        stETH.slash(msg.sender, stETHBeforeBalance);  /// New
+        //stETH.slash(msg.sender, ETHBeforeBalance);  /// Original
 
         uint256 stETHAfterBalance = stETH.balanceOf(address(this));
         uint256 ETHAfterBalance = address(this).balance;
