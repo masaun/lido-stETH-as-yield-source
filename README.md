@@ -1,8 +1,8 @@
-# Lido stETH integration (interest-bearing Token)
+# Lido's stETH as a yield source of PoolTogether🎫🎟
 
 ***
-## 【Introduction of the Lido stETH integration】
-- This is a smart contract that:
+## 【Introduction of the Lido's stETH as a yield source of PoolTogether】
+- This is a smart contract that can utilize Lido's stETH as a yield source of PoolTogether.
 
 &nbsp;
 
@@ -44,13 +44,8 @@ npm run migrate:local
 
 <br>
 
-### ③ Test (Kovan testnet-fork approach)
-- 1: Get API-key from Infura  
-https://infura.io/
-
-<br>
-
-- 2: Start ganache-cli
+### ③ Test (on local)
+- 1: Start ganache-cli
 ```
 ganache-cli -d
 ```
@@ -59,14 +54,13 @@ ganache-cli -d
 
 <br>
 
-- Execute test of the smart-contracts (on the local)
+- 2: Execute test of the smart-contracts
 ```
 npm run test:LidoYieldSource
 ```
 ( `truffle test ./test/test-local/LidoYieldSource.test.js --network local` )  
 
 <br>
-
 
 ***
 
