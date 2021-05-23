@@ -6,8 +6,8 @@
     "test": "test"
   },
   "scripts": {
-    "test:Lido": "truffle test ./test/test-local/lido/*",
-    "test:LidoYieldSource": "truffle test ./test/test-local/LidoYieldSource.test.js",
+    "test:Lido": "truffle test ./test/test-local/lido/* --network local",
+    "test:LidoYieldSource": "truffle test ./test/test-local/LidoYieldSource.test.js --network local",
     "compile:local": "truffle compile --reset --network local",
     "migrate:local": "truffle migrate --reset --network local"
   },

@@ -68,22 +68,9 @@ contract("LidoYieldSource", function(accounts) {
             let txReceipt = await stETH.setTotalPooledEther(totalPooledEther, { from: wallet })
         })
 
-        it("submit() <- This is a test", async function () {
-            /// [Note]: setTotalShares() and setTotalPooledEther() are executed in this part. Because it doesn't work if it is executed in global
-            const totalShares = toWei("1")
-            let txReceipt1 = await stETH.setTotalShares(totalShares, { from: wallet })
-
-            const totalPooledEther = toWei("1")
-            let txReceipt2 = await stETH.setTotalPooledEther(totalPooledEther, { from: wallet })
-
-            let txReceipt3 = await stETH.submit(wallet2, { from: wallet, value: amount })
-            let stETHBalance = await stETH.balanceOf(wallet)            
-            console.log('=== stETH balance of wallet ===', fromWei(stETHBalance))
-        })
-
         it("get token address", async function () {
             let address = await yieldSource.depositToken()
-            console.log('=== depositToken ===', address)
+            console.log('=== depositToken (ETH) ===', address)
             expect(address == "0x0000000000000000000000000000000000000000")   /// ETH
         })
 
@@ -117,16 +104,9 @@ contract("LidoYieldSource", function(accounts) {
         })
 
         it("redeemToken", async function () {
-            let ETHBalanceBefore = await yieldSource.getETHBalance(wallet)
-            console.log('=== ETHBalanceBefore ===', fromWei(ETHBalanceBefore))
-
             await yieldSource.redeemToken(amount, { from: wallet})
-            let ETHBalanceAfter = await yieldSource.getETHBalance(wallet)
-            console.log('=== ETHBalanceAfter ===', fromWei(ETHBalanceAfter))
-
-            // expect(fromWei(ETHBalanceBefore)).to.eq(
-            //     fromWei(ETHBalanceAfter)
-            // )
+            let ETHBalance = await yieldSource.getETHBalance(wallet)
+            console.log('=== ETHBalance (after redeemToken) ===', fromWei(ETHBalance))
         })
     })
 })
