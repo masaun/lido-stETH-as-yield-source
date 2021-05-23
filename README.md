@@ -3,7 +3,7 @@
 - This is a smart contract that can utilize Lido's stETH as a yield source of PoolTogether.
 
 - Note:
-  - Explanation about PoolTogether yield source: https://docs.pooltogether.com/protocol/yield-sources )
+  - Explanation about PoolTogether yield source: https://docs.pooltogether.com/protocol/yield-sources
 
 &nbsp;
 
