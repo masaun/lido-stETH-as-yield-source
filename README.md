@@ -10,6 +10,8 @@
 
 ## 【Workflow】
 - Diagram of workflow
+  (Note: This repo is that only part of green one below is implemented)
+![【Diagram】Lido's stETH as a yield source of PoolTogether](https://user-images.githubusercontent.com/19357502/119280329-e7b73c00-bc6b-11eb-8b11-58ac992f86e8.jpg)
 
 &nbsp;
 
