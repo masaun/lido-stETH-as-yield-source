@@ -50,9 +50,9 @@ https://infura.io/
 
 <br>
 
-- 2: Start ganache-cli with kovan testnet-fork (using Infura Key of Kovan tesntnet)
+- 2: Start ganache-cli
 ```
-ganache-cli -d --fork https://kovan.infura.io/v3/{YOUR INFURA KEY OF KOVAN}
+ganache-cli -d
 ```
 (※ `-d` option is the option in order to be able to use same address on Ganache-CLI every time)  
 (※ Please stop and re-start if an error of `"Returned error: project ID does not have access to archive state"` is displayed)  
