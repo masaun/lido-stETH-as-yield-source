@@ -1,8 +1,9 @@
 # Lido's stETH as a yield source of PoolTogether🎫🎟
-
-***
 ## 【Introduction of the Lido's stETH as a yield source of PoolTogether】
 - This is a smart contract that can utilize Lido's stETH as a yield source of PoolTogether.
+
+- Note:
+  - Explanation about PoolTogether yield source: https://docs.pooltogether.com/protocol/yield-sources )
 
 &nbsp;
 
@@ -80,6 +81,13 @@ https://youtu.be/dBGuZbPMlyA
   - [Definition]：StETH.sol is an interest-bearing ERC20-like token
     - StETH.sol: https://github.com/lidofinance/lido-dao/blob/master/contracts/0.4.24/StETH.sol#L14
     - StETHMockERC20.sol: https://github.com/lidofinance/lido-dao/blob/master/contracts/0.6.12/mocks/StETHMockERC20.sol
+
+<br>
+
+- PoolTogether
+  - Yield Source Interface: https://github.com/pooltogether/yield-source-interface
+  - Doc (Explanation about PoolTogether yield source): https://docs.pooltogether.com/protocol/yield-sources
+  - Workshop: https://www.youtube.com/watch?v=sTsMt0zdOHY
 
 <br>
 
