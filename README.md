@@ -1,8 +1,8 @@
-# Lido stETH integration (interest-bearing Token)
+# Lido's stETH as a yield source of PoolTogether🎫🎟
 
 ***
-## 【Introduction of the Lido stETH integration】
-- This is a smart contract that:
+## 【Introduction of the Lido's stETH as a yield source of PoolTogether】
+- This is a smart contract that can utilize Lido's stETH as a yield source of PoolTogether.
 
 &nbsp;
 
@@ -10,6 +10,8 @@
 
 ## 【Workflow】
 - Diagram of workflow
+  (Note: This repo is that only part of green one below is implemented)
+![【Diagram】Lido's stETH as a yield source of PoolTogether](https://user-images.githubusercontent.com/19357502/119280329-e7b73c00-bc6b-11eb-8b11-58ac992f86e8.jpg)
 
 &nbsp;
 
@@ -44,22 +46,17 @@ npm run migrate:local
 
 <br>
 
-### ③ Test (Kovan testnet-fork approach)
-- 1: Get API-key from Infura  
-https://infura.io/
-
-<br>
-
-- 2: Start ganache-cli with kovan testnet-fork (using Infura Key of Kovan tesntnet)
+### ③ Test (on local)
+- 1: Start ganache-cli
 ```
-ganache-cli -d --fork https://kovan.infura.io/v3/{YOUR INFURA KEY OF KOVAN}
+ganache-cli -d
 ```
 (※ `-d` option is the option in order to be able to use same address on Ganache-CLI every time)  
 (※ Please stop and re-start if an error of `"Returned error: project ID does not have access to archive state"` is displayed)  
 
 <br>
 
-- Execute test of the smart-contracts (on the local)
+- 2: Execute test of the smart-contracts
 ```
 npm run test:LidoYieldSource
 ```
@@ -67,6 +64,11 @@ npm run test:LidoYieldSource
 
 <br>
 
+## 【Demo】
+- Video demo of test above.  
+https://youtu.be/dBGuZbPMlyA
+
+<br>
 
 ***
 
