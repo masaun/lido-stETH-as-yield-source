@@ -75,10 +75,12 @@ https://youtu.be/dBGuZbPMlyA
 
 ## 【References】
 - Lido.finance
-  - [Deployed-addresses]: Mainnet & Görli testnet
-     https://github.com/lidofinance/lido-dao#deployments
+  - Doc: https://docs.lido.fi/
 
-  - [Definition]：StETH.sol is an interest-bearing ERC20-like token
+  - [Deployed-addresses]: Mainnet & Görli testnet  
+    https://github.com/lidofinance/lido-dao#deployments
+
+  - Smart contract: https://github.com/lidofinance/lido-dao/tree/master/contracts
     - StETH.sol: https://github.com/lidofinance/lido-dao/blob/master/contracts/0.4.24/StETH.sol#L14
     - StETHMockERC20.sol: https://github.com/lidofinance/lido-dao/blob/master/contracts/0.6.12/mocks/StETHMockERC20.sol
 
