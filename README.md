@@ -1,9 +1,12 @@
 # Lido's stETH as a yield source of PoolTogether🎫🎟
 ## 【Introduction of the Lido's stETH as a yield source of PoolTogether】
 - This is a smart contract that can utilize Lido's stETH as a yield source of PoolTogether.
+  - Currently, several interest-bearing tokens such as Compound Token (e.g. cDAI), xSushi, AAVE Token (e.g. aDAI) is used as yield source of PoolTogether.
+    https://docs.pooltogether.com/protocol/yield-sources
 
-- Note:
-  - Explanation about PoolTogether yield source: https://docs.pooltogether.com/protocol/yield-sources
+  - `stETH` is also a `interest-bearing token` (which is minted by depositing ETH as underlying asset). Therefore, stETH is suitable to be used as a yield source of PoolTogether.
+  
+  - This repo is a integration between Lido's stETH and PoolTogether yieid source interface. 
 
 &nbsp;
 
